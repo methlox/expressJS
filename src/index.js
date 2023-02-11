@@ -28,7 +28,10 @@ const groceryList = [
 ];
 
 // GET REQ
-app.get('/groceries', (req, res) => {
+app.get('/groceries',(req, res, next) => {
+    console.log('Before handling the request');
+    next();
+}, (req, res) => {
     res.send(groceryList);
 });
 
