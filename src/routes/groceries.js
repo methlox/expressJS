@@ -16,6 +16,13 @@ const groceryList = [
     },
 ];
 
+
+// AUTH MIDDLEWARE
+router.use((req, res, next) => {
+    if(req.session.user) next();
+    else res.sendStatus(401);
+});
+
 // GET REQ
 router.get('/', (req, res) => {
 

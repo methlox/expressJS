@@ -1,12 +1,12 @@
 // console.log("hello")
 
-const { request } = require('express');
+// const { request } = require('express');
 const express = require('express');  // imports express library
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-
 const groceriesRoute = require('./routes/groceries');
 const supermarketsRoute = require('./routes/market');
+const authRoute = require('./routes/auth');
 
 const app = express(); // creates an instance application of express
 
@@ -28,7 +28,9 @@ app.use((req, res, next) => {
     next();
 });
 
+
 app.use('/api/groceries', groceriesRoute);
-app.use('/api/markets', supermarketsRoute)
+app.use('/api/markets', supermarketsRoute);
+app.use('/api/auth', authRoute);
 
 app.listen(PORT, () => console.log(`express server running on PORT ${PORT}`));
