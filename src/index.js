@@ -2,6 +2,7 @@
 
 // const { request } = require('express');
 const express = require('express');  // imports express library
+// const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const groceriesRoute = require('./routes/groceries');
@@ -11,6 +12,15 @@ const authRoute = require('./routes/auth');
 const app = express(); // creates an instance application of express
 
 const PORT = 3001; // we need to set up a port to start listening to requests coming in
+
+require('./database');
+
+// mongoose.set('strictQuery', false);
+// // MONGODB
+// mongoose
+//   .connect('mongodb://localhost:27017/expressjs')
+//   .then(() => console.log('Connected to DB'))
+//   .catch((err) => console.log(err));
 
 app.use(express.json()); // middleware
 app.use(express.urlencoded({extended: true}));
