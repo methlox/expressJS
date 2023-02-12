@@ -5,6 +5,8 @@ const express = require('express');  // imports express library
 // const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const passport = require('passport');
+
 const groceriesRoute = require('./routes/groceries');
 const supermarketsRoute = require('./routes/market');
 const authRoute = require('./routes/auth');
@@ -37,6 +39,10 @@ app.use((req, res, next) => {
     console.log(`${req.method}:${req.url}`);
     next();
 });
+
+// PASSPORT
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 app.use('/api/groceries', groceriesRoute);

@@ -18,22 +18,24 @@ const router = Router();
 //   } else response.send(401);
 // });
 
-router.post('/login', async (req, res) => {
-  const { email, password } = req.body;
-  if(!email || !password) return res.sendStatus(400);
-  const userDB = await User.findOne({ email });
-  if(!userDB) return res.send(401);
-  const isValid = comparePassword(password, userDB.password);
-  if (isValid) {
-    console.log('Authentication successful');
-    return res.sendStatus(200);
-    req.session.user = userDB; // MODIFYING SESSION OR ATTACHING A COOKIE YOU KNOW HOW WE ROLL
-  } else {
-    console.log('Authentication failed');
-    return res.sendStatus(401);
-  }
+// router.post('/login', async (req, res) => {
+//   const { email, password } = req.body;
+//   if(!email || !password) return res.sendStatus(400);
+//   const userDB = await User.findOne({ email });
+//   if(!userDB) return res.send(401);
+//   const isValid = comparePassword(password, userDB.password);
+//   if (isValid) {
+//     console.log('Authentication successful');
+//     return res.sendStatus(200);
+//     req.session.user = userDB; // MODIFYING SESSION OR ATTACHING A COOKIE YOU KNOW HOW WE ROLL
+//   } else {
+//     console.log('Authentication failed');
+//     return res.sendStatus(401);
+//   }
 
-})
+// })
+
+
 
 router.post('/register', async (request, response) => {
   const { email } = request.body;
