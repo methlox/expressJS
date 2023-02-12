@@ -2,6 +2,8 @@
 
 const { request } = require('express');
 const express = require('express');  // imports express library
+const groceriesRoute = require('./routes/groceries');
+const supermarketsRoute = require('./routes/market');
 
 const app = express(); // creates an instance application of express
 
@@ -16,38 +18,7 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use('/api/groceries', groceriesRoute);
+app.use('/api/markets', supermarketsRoute)
+
 app.listen(PORT, () => console.log(`express server running on PORT ${PORT}`));
-
-const groceryList = [
-    {
-        item: "milk",
-        quantity: 2
-    },
-    {
-        item: "apples",
-        quantity: 4
-    },
-    {
-        item: "pop-tarts",
-        quantity: 4
-    },
-];
-
-// GET REQ
-app.get('/groceries', (req, res) => {
-    res.send(groceryList);
-});
-
-app.get('/groceries/:item', (req, res) => {
-    // console.log(req.params.item);
-    const {item} = req.params;
-    const groceryItem = groceryList.find((g) => g.item === item);
-    res.send(groceryItem);
-})
-
-// POST REQ
-app.post('/groceries', (req, res) => {
-    console.log(req.body);
-    groceryList.push(req.body);
-    res.sendStatus(201);
-})
