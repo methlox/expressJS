@@ -16,6 +16,7 @@ const app = express(); // creates an instance application of express
 const PORT = 3001; // we need to set up a port to start listening to requests coming in
 
 require('./database');
+require('./strategies/local');
 
 // mongoose.set('strictQuery', false);
 // // MONGODB

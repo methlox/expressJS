@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const User = require('../database/schemas/User');
 const { hashPassword, comparePassword } = require('../utils/helpers.js');
- 
+const passport = require('passport');
 const router = Router();
 
 // router.post('/login', (request, response) => {
@@ -24,18 +24,21 @@ const router = Router();
 //   const userDB = await User.findOne({ email });
 //   if(!userDB) return res.send(401);
 //   const isValid = comparePassword(password, userDB.password);
-//   if (isValid) {
-//     console.log('Authentication successful');
-//     return res.sendStatus(200);
-//     req.session.user = userDB; // MODIFYING SESSION OR ATTACHING A COOKIE YOU KNOW HOW WE ROLL
-//   } else {
-//     console.log('Authentication failed');
-//     return res.sendStatus(401);
-//   }
+  // if (isValid) {
+  //   console.log('Authentication successful');
+  //   return res.sendStatus(200);
+  //   req.session.user = userDB; // MODIFYING SESSION OR ATTACHING A COOKIE YOU KNOW HOW WE ROLL
+  // } else {
+  //   console.log('Authentication failed');
+  //   return res.sendStatus(401);
+  // }
 
 // })
 
-
+router.post('/login', passport.authenticate('local'), (req, res) => {
+  console.log('Logged In!');
+  res.sendStatus(200); 
+});
 
 router.post('/register', async (request, response) => {
   const { email } = request.body;
