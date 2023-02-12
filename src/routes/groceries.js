@@ -37,6 +37,33 @@ router.get('/:item', (req, res) => {
     res.send(groceryItem);
 });
 
+// CART
+router.get('/shopping/cart', (req, res) => {
+    const { cart } = req.session;
+    if(!cart){
+        res.send('you got no cart homie!');
+    } else{
+        res.send(cart);
+    }
+});
+
+router.post('/shopping/cart/item', (req, res) => {
+    const { item, quantity } = req.body;
+    const cartItem = { item, quantity };
+    // console.log(cartItem);
+    // res.send(req.sessionID);
+    const { cart } = req.session;
+    if (cart) {
+        req.session.cart.items.push(cartItem);
+    } else {
+        req.session.cart = {
+            items: [ cartItem ],
+        }
+    }
+
+    res.sendStatus(201);
+});
+
 // POST REQ
 router.post('/', (req, res) => {
     console.log(req.body);
