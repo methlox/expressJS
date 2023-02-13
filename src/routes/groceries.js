@@ -19,7 +19,10 @@ const groceryList = [
 
 // AUTH MIDDLEWARE
 router.use((req, res, next) => {
-    if(req.session.user) next();
+    // if(req.session.user) next();
+    console.log('Inside groceries auth check middleware');
+    console.log(req.user);
+    if(req.user) next();
     else res.sendStatus(401);
 });
 
@@ -30,8 +33,7 @@ router.get('/', (req, res) => {
     res.cookie('visited', true, {
         maxAge: 10000, // 10k milisec=10 sec
     });
-
-
+    
     res.send(groceryList);
 });
 
