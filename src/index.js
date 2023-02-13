@@ -3,6 +3,7 @@
 // const { request } = require('express');
 const express = require('express');  // imports express library
 // const mongoose = require('mongoose');
+const mongoStore = require('connect-mongo');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const passport = require('passport');
@@ -14,6 +15,8 @@ const authRoute = require('./routes/auth');
 const app = express(); // creates an instance application of express
 
 const PORT = 3001; // we need to set up a port to start listening to requests coming in
+
+// const memoryStore = new session.MemoryStore();
 
 require('./database');
 require('./strategies/local');
@@ -33,6 +36,11 @@ app.use(session({
     secret: 'HSUIDJFGSJGIHEIOFGIFHFDGJKDFDFNGIFJFJIOGJ',
     resave: false,
     saveUninitialized: false,
+    // store: memoryStore,
+    store: mongoStore.create({
+        mongoUrl: 'mongodb://127.0.0.1:27017/expressjs',
+    }),
+
 }));
 
 app.use((req, res, next) => {
@@ -40,6 +48,11 @@ app.use((req, res, next) => {
     console.log(`${req.method}:${req.url}`);
     next();
 });
+
+// app.use((req, res, next) => {
+//     console.log(memoryStore);
+//     next();
+// });
 
 // PASSPORT
 app.use(passport.initialize());
