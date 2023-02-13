@@ -28,7 +28,7 @@ const router = Router();
   //   console.log('Authentication successful');
   //   return res.sendStatus(200);
   //   req.session.user = userDB; // MODIFYING SESSION OR ATTACHING A COOKIE YOU KNOW HOW WE ROLL
-  // } else {
+  // } else { 
   //   console.log('Authentication failed');
   //   return res.sendStatus(401);
   // }
@@ -51,6 +51,15 @@ router.post('/register', async (request, response) => {
     const newUser = await User.create({ username, password, email });
     response.sendStatus(201);
   }
+});
+
+router.get('/discord', passport.authenticate('discord'), (req, res) => {
+  res.sendStatus(200);
+});
+
+
+router.get('/discord/redirect', passport.authenticate('discord'), (req, res) => {
+  res.sendStatus(200);
 });
 
 module.exports = router;

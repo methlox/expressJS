@@ -19,7 +19,8 @@ const PORT = 3001; // we need to set up a port to start listening to requests co
 // const memoryStore = new session.MemoryStore();
 
 require('./database');
-require('./strategies/local');
+// require('./strategies/local');
+require('./strategies/discord');
 
 // mongoose.set('strictQuery', false);
 // // MONGODB
